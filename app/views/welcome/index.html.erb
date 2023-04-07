@@ -1,0 +1,5 @@
+<h1>Ruby Jobs!<h1>
+
+<% @jobs.each do |post| %>
+  <h2><%= link_to post.name, post.post_link, target: :_blank %></h2>
+<% end %>
