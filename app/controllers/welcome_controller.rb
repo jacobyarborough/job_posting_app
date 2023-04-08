@@ -4,7 +4,7 @@ class WelcomeController < ApplicationController
   def index 
     jobs_array = []
     start_val = 1
-    url = "https://www.linkedin.com/jobs/search/?currentJobId=3554370812&f_TPR=r604800&geoId=103644278&keywords=ruby&location=United%20States&start=#{start_val}"
+    url = "https://www.linkedin.com/jobs/search/?currentJobId=3554746024&f_TPR=r604800&geoId=103644278&keywords=ruby&location=United%20States&start=#{start_val}"
 
     doc = Nokogiri::HTML(URI.open(url))
 
@@ -26,7 +26,7 @@ class WelcomeController < ApplicationController
       final_pages = init_pages.round()
     end 
 
-    limit_page = [final_pages,20].min
+    limit_page = [final_pages,25].min
 
     page = 1
 
@@ -40,7 +40,7 @@ class WelcomeController < ApplicationController
           if job_post.children[1].attributes["data-entity-urn"]
             posting_id = job_post.children[1].attributes["data-entity-urn"].value.split(":")[3]
 
-            if job_post.css('div a')
+            if job_post.css('div a') && job_post.css('div a').attribute('href') && job_post.css('div a').attribute('href').value
               page_link = job_post.css('div a').attribute('href').value.split("?")[0]
               draft_job_title = job_post.css('div a').attribute('href').value.split("/")[5].split("?")[0].split("-")
               draft_job_title.pop
